@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance System - With WhatsApp PDF</title>
+    <title>Attendance System - With WhatsApp PDF (Protected)</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230984e3'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white' font-family='Arial'%3E%F0%9F%91%B7%3C/text%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230984e3'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white' font-family='Arial'%3E%F0%9F%91%B7%3C/text%3E%3C/svg%3E">
@@ -20,6 +20,267 @@
             background: #f0f2f5;
             padding: 15px;
         }
+
+        /* LOGIN OVERLAY */
+        #loginOverlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #0984e3 0%, #6c5ce7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        #loginOverlay.hidden {
+            display: none;
+        }
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 35px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+            animation: loginFade 0.5s ease;
+        }
+        @keyframes loginFade {
+            from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .login-card .login-icon {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .login-card h2 {
+            text-align: center;
+            color: #2d3436;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .login-card .login-subtitle {
+            text-align: center;
+            color: #6c757d;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+        .login-card .form-group {
+            margin-bottom: 18px;
+        }
+        .login-card .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+        .login-card .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        .login-card .form-group input:focus {
+            outline: none;
+            border-color: #0984e3;
+            box-shadow: 0 0 0 4px rgba(9,132,227,0.15);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 5px;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(9,132,227,0.4);
+        }
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        .login-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none;
+            border: 1px solid #f5c6cb;
+            line-height: 1.5;
+        }
+        .login-error.show {
+            display: block;
+            animation: shake 0.4s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 11px;
+            color: #adb5bd;
+        }
+
+        /* FIRST LOGIN ACTIVATION BADGE */
+        .activation-note {
+            background: #e8f4fd;
+            border-left: 4px solid #0984e3;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #2c3e50;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+        .activation-note strong { color: #0984e3; }
+
+        /* EXPIRED MESSAGE CARD */
+        .expired-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 35px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: loginFade 0.5s ease;
+        }
+        .expired-card .expired-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        .expired-card h2 {
+            color: #d63031;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .expired-card .expired-info {
+            background: #fff5f5;
+            border-left: 4px solid #d63031;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #2d3436;
+            line-height: 1.8;
+        }
+        .expired-card .expired-info strong { color: #d63031; }
+        .contact-box {
+            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            text-align: left;
+        }
+        .contact-box h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .contact-box p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+        }
+        .contact-box .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+        .contact-box .contact-item .icon {
+            font-size: 18px;
+        }
+        .contact-box a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dashed rgba(255,255,255,0.5);
+        }
+        .contact-box a:hover {
+            border-bottom-style: solid;
+        }
+        .expired-card .plan-badge {
+            display: inline-block;
+            background: #e17055;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .expired-card .logout-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #6c757d;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .expired-card .logout-link:hover {
+            color: #0984e3;
+        }
+
+        /* LOGOUT BUTTON in header */
+        .logout-btn {
+            background: #e17055;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
+        }
+        .logout-btn:hover { background: #d63031; }
+
+        /* PLAN INFO BADGE in header */
+        .plan-info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #00b894;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .plan-info-badge.warning {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+        .plan-info-badge.danger {
+            background: #e17055;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -39,6 +300,10 @@
         .header-right {
             font-size: 14px;
             color: #6c757d;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
         }
         .company-name-input {
             display: flex;
@@ -346,15 +611,47 @@
         @media (max-width: 600px) {
             .form-row, .form-row-3 { grid-template-columns: 1fr; }
             .company-name-input { flex-direction: column; align-items: stretch; }
+            .header-right { justify-content: flex-start; }
         }
     </style>
 </head>
 <body>
 
+<!-- ================= LOGIN OVERLAY ================= -->
+<div id="loginOverlay">
+    <div class="login-card" id="loginCard">
+        <div class="login-icon">🔐</div>
+        <h2>Attendance System</h2>
+        <div class="login-subtitle">Please login to continue</div>
+        
+       
+
+        <div class="login-error" id="loginError"></div>
+        
+        <div class="form-group">
+            <label>👤 User ID</label>
+            <input type="text" id="loginUserId" placeholder="Enter user ID" autocomplete="username">
+        </div>
+        <div class="form-group">
+            <label>🔒 Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password">
+        </div>
+        
+        <button class="login-btn" onclick="handleLogin()">🔓 Login</button>
+        
+        <div class="login-footer">
+            Sume-Tech Attendance System &copy; 2025
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <h1>
         <span>👷 Attendance System</span>
-        <span class="header-right">📁 Month-wise Files | 📱 WhatsApp PDF</span>
+        <span class="header-right">
+            <span id="planInfoBadge"></span>
+            <button class="logout-btn" onclick="handleLogout()">🚪 Logout</button>
+        </span>
     </h1>
 
     <div class="company-name-input">
@@ -992,6 +1289,324 @@
 
 <script>
 // ============================================
+// SOFTWARE PROVIDER CONTACT INFO
+// ============================================
+const SOFTWARE_PROVIDER = {
+    name: 'Sume-Tech Software Solutions',
+    phone: '+91 98765 43210',
+    whatsapp: '919876543210',
+    email: 'support@sumetech.com'
+};
+
+// ============================================
+// SUBSCRIPTION PLANS (TEMPLATES)
+// ============================================
+/*
+ * Ye plans "templates" hain.
+ * Jab user PEHLI BAAR login karega, tab us user ke liye
+ * `startDate` = Aaj ki date, aur `expiryDate` = Aaj + planDays
+ * LOCALSTORAGE me save ho jayega.
+ *
+ * IMPORTANT: Ye file me diye gaye planDays sirf pehli baar
+ * activation ke liye hain. Uske baad user ki apni expiry
+ * localStorage me store hoti hai — provider password change
+ * karne se user ki expiry par koi asar nahi padega.
+ */
+
+const PLAN_TEMPLATES = [
+    {
+        userId: 'user1month',
+        password: 'month1pass',
+        plan: '1 Month',
+        planDays: 30
+    },
+    {
+        userId: 'user6months',
+        password: 'halfyearpass',
+        plan: '6 Months',
+        planDays: 180
+    },
+    {
+        userId: 'user1year',
+        password: 'yearpass',
+        plan: '1 Year',
+        planDays: 365
+    },
+    // MASTER / DEMO ACCOUNT
+    {
+        userId: 'admin',
+        password: 'admin123',
+        plan: '1 Month  (Demo)',
+        planDays: 30
+    }
+];
+
+// ============================================
+// SUBSCRIPTION STORAGE (LocalStorage)
+// ============================================
+const SUBSCRIPTION_KEY = 'attendanceSubscriptions';
+
+function getSubscriptions() {
+    try {
+        const raw = localStorage.getItem(SUBSCRIPTION_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+        console.error('Error reading subscriptions:', e);
+        return {};
+    }
+}
+
+function saveSubscriptions(subs) {
+    localStorage.setItem(SUBSCRIPTION_KEY, JSON.stringify(subs));
+}
+
+/*
+ * Get or create subscription for a user.
+ * - Agar pehli baar login hai: startDate = today, expiryDate = today + planDays
+ * - Agar already subscription hai: wahi return karo (provider password
+ *   change karne se is user ki expiry nahi badlegi)
+ */
+function getOrCreateSubscription(user) {
+    const subs = getSubscriptions();
+    const key = user.userId;
+
+    if (subs[key]) {
+        // Already subscribed — return as-is
+        return subs[key];
+    }
+
+    // First-time login — activate subscription now
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const expiry = new Date(start);
+    expiry.setDate(expiry.getDate() + user.planDays);
+    expiry.setHours(23, 59, 59, 999);
+
+    const subscription = {
+        userId: user.userId,
+        plan: user.plan,
+        planDays: user.planDays,
+        startDate: start.toISOString(),
+        expiryDate: expiry.toISOString(),
+        activatedAt: new Date().toISOString()
+    };
+
+    subs[key] = subscription;
+    saveSubscriptions(subs);
+
+    return subscription;
+}
+
+// Check if subscription expired
+function isSubscriptionExpired(subscription) {
+    return new Date() > new Date(subscription.expiryDate);
+}
+
+// Days remaining
+function getDaysRemaining(subscription) {
+    const expiry = new Date(subscription.expiryDate);
+    const now = new Date();
+    if (now > expiry) return 0;
+    return Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
+}
+
+// Format date
+function formatDate(d) {
+    if (typeof d === 'string') d = new Date(d);
+    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+// Find user by credentials (from templates — password check)
+function findUser(userId, password) {
+    return PLAN_TEMPLATES.find(u => u.userId === userId && u.password === password);
+}
+
+function handleLogin() {
+    const userId = document.getElementById('loginUserId').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    const errorEl = document.getElementById('loginError');
+
+    if (!userId || !password) {
+        showLoginError('⚠️ Please enter both User ID and Password.');
+        return;
+    }
+
+    // Step 1: Verify password from TEMPLATES
+    const user = findUser(userId, password);
+
+    if (!user) {
+        showLoginError('❌ Invalid User ID or Password!');
+        document.getElementById('loginPassword').value = '';
+        document.getElementById('loginPassword').focus();
+        return;
+    }
+
+    // Step 2: Get or create subscription (localStorage)
+    const subscription = getOrCreateSubscription(user);
+
+    // Step 3: Check expiry
+    if (isSubscriptionExpired(subscription)) {
+        showExpiredScreen(subscription);
+        return;
+    }
+
+    // Success — save session
+    sessionStorage.setItem('attendanceLoggedIn', 'true');
+    sessionStorage.setItem('attendanceUser', user.userId);
+
+    document.getElementById('loginOverlay').classList.add('hidden');
+    errorEl.classList.remove('show');
+
+    updatePlanBadge(subscription);
+    init();
+}
+
+function showLoginError(msg) {
+    const errorEl = document.getElementById('loginError');
+    errorEl.innerHTML = msg;
+    errorEl.classList.add('show');
+    setTimeout(() => errorEl.classList.remove('show'), 3500);
+}
+
+// Show "Plan Expired" screen
+function showExpiredScreen(subscription) {
+    const overlay = document.getElementById('loginOverlay');
+    const start = new Date(subscription.startDate);
+    const expiry = new Date(subscription.expiryDate);
+
+    overlay.innerHTML = `
+        <div class="expired-card">
+            <div class="expired-icon">⛔</div>
+            <div class="plan-badge">${subscription.plan} PLAN</div>
+            <h2>Subscription Expired</h2>
+            <p style="color:#6c757d;font-size:14px;">
+                Aapka subscription plan <strong>${formatDate(expiry)}</strong> ko khatam ho gaya hai.
+            </p>
+
+            <div class="expired-info">
+                <div>👤 <strong>User ID:</strong> ${subscription.userId}</div>
+                <div>📦 <strong>Plan:</strong> ${subscription.plan} (${subscription.planDays} days)</div>
+                <div>📅 <strong>Start Date:</strong> ${formatDate(start)}</div>
+                <div>🔚 <strong>Expiry Date:</strong> ${formatDate(expiry)}</div>
+                <div>❌ <strong>Status:</strong> <span style="color:#d63031;font-weight:600;">Expired</span></div>
+            </div>
+
+            <div class="contact-box">
+                <h3>📞 Software Provider Se Sampark Karein</h3>
+                <p>Apna plan renew karwane ke liye niche diye gaye details par contact karein:</p>
+                <div class="contact-item">
+                    <span class="icon">🏢</span>
+                    <span><strong>${SOFTWARE_PROVIDER.name}</strong></span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <span><a href="tel:${SOFTWARE_PROVIDER.phone.replace(/\s/g, '')}">${SOFTWARE_PROVIDER.phone}</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📱</span>
+                    <span><a href="https://wa.me/${SOFTWARE_PROVIDER.whatsapp}" target="_blank">WhatsApp: ${SOFTWARE_PROVIDER.phone}</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <span><a href="mailto:${SOFTWARE_PROVIDER.email}">${SOFTWARE_PROVIDER.email}</a></span>
+                </div>
+            </div>
+
+            <button class="login-btn" onclick="location.reload()">🔄 Back to Login</button>
+            <div class="logout-link" onclick="location.reload()">← Try another account</div>
+        </div>
+    `;
+}
+
+function updatePlanBadge(subscription) {
+    const badge = document.getElementById('planInfoBadge');
+    if (!badge) return;
+
+    const days = getDaysRemaining(subscription);
+    const expiry = new Date(subscription.expiryDate);
+
+    let cls = 'plan-info-badge';
+    let icon = '✅';
+    if (days <= 7) { cls += ' danger'; icon = '⚠️'; }
+    else if (days <= 30) { cls += ' warning'; icon = '⏳'; }
+
+    badge.className = cls;
+    badge.innerHTML = `${icon} ${subscription.plan} • ${days} day${days !== 1 ? 's' : ''} left (till ${formatDate(expiry)})`;
+}
+
+// Periodically check expiry while app is open
+setInterval(() => {
+    if (sessionStorage.getItem('attendanceLoggedIn') !== 'true') return;
+    const userId = sessionStorage.getItem('attendanceUser');
+    if (!userId) return;
+
+    const subs = getSubscriptions();
+    const sub = subs[userId];
+    if (!sub) return;
+
+    if (isSubscriptionExpired(sub)) {
+        alert('⛔ Aapka subscription plan expire ho gaya hai. Software provider se sampark karein.');
+        sessionStorage.clear();
+        location.reload();
+    } else {
+        updatePlanBadge(sub);
+    }
+}, 60 * 1000);
+
+function handleLogout() {
+    if (!confirm('Are you sure you want to logout?')) return;
+    sessionStorage.removeItem('attendanceLoggedIn');
+    sessionStorage.removeItem('attendanceUser');
+    location.reload();
+}
+
+function checkAuth() {
+    if (sessionStorage.getItem('attendanceLoggedIn') === 'true') {
+        const userId = sessionStorage.getItem('attendanceUser');
+        const subs = getSubscriptions();
+        const sub = subs[userId];
+
+        if (!sub || isSubscriptionExpired(sub)) {
+            sessionStorage.clear();
+            if (sub) showExpiredScreen(sub);
+            return false;
+        }
+
+        document.getElementById('loginOverlay').classList.add('hidden');
+        updatePlanBadge(sub);
+        return true;
+    }
+    return false;
+}
+
+// Enter key support
+document.addEventListener('DOMContentLoaded', function() {
+    const pwdInput = document.getElementById('loginPassword');
+    const userInput = document.getElementById('loginUserId');
+    if (pwdInput) {
+        pwdInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleLogin();
+        });
+    }
+    if (userInput) {
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginPassword').focus();
+            }
+        });
+    }
+    
+    if (checkAuth()) {
+        init();
+    } else {
+        setTimeout(() => {
+            const el = document.getElementById('loginUserId');
+            if (el) el.focus();
+        }, 300);
+    }
+});
+
+// ============================================
 // GLOBAL DATA
 // ============================================
 let data = {
@@ -1169,7 +1784,6 @@ async function selectFolder() {
     }
 }
 
-// ✅ UPDATED: Current month ki latest file load karo
 async function findExistingFile() {
     try {
         const now = new Date();
@@ -1190,7 +1804,6 @@ async function findExistingFile() {
                 const datePart = entry.name.replace('Attendance_Data_', '').replace('.xlsx', '');
                 const fileMonthPrefix = datePart.substring(0, 7);
                 
-                // Current month ki file track karo
                 if (fileMonthPrefix === currentMonthPrefix) {
                     if (file.lastModified > currentMonthTime) {
                         currentMonthTime = file.lastModified;
@@ -1198,7 +1811,6 @@ async function findExistingFile() {
                     }
                 }
                 
-                // Backup ke liye latest file bhi track karo
                 if (file.lastModified > anyLatestTime) {
                     anyLatestTime = file.lastModified;
                     anyLatestFile = entry;
@@ -1302,7 +1914,6 @@ async function loadExcelFile(fileHandle) {
     }
 }
 
-// ✅ UPDATED: Month-wise file save karo (purane mahine ki file safe rakho)
 async function saveAllData() {
     if (!data.folderHandle) {
         showFolderStatus('⚠️ Please select a folder first!', 'error');
@@ -1368,7 +1979,6 @@ async function saveAllData() {
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         
-        // ✅ CURRENT DATE + CURRENT TIME
         const now = new Date();
         const timestamp = now.getFullYear() + '-' + 
                          String(now.getMonth() + 1).padStart(2, '0') + '-' + 
@@ -1378,11 +1988,8 @@ async function saveAllData() {
                          String(now.getSeconds()).padStart(2, '0');
         const filename = `Attendance_Data_${timestamp}.xlsx`;
         
-        // ✅ CURRENT MONTH PREFIX (e.g. "2025-01")
         const currentMonthPrefix = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
         
-        // ✅ SIRF USI MONTH ki purani files delete karo
-        // Dusre mahine ki files SAFE rahengi
         try {
             const toDelete = [];
             for await (const entry of data.folderHandle.values()) {
@@ -1391,11 +1998,9 @@ async function saveAllData() {
                     entry.name.endsWith('.xlsx') &&
                     entry.name !== filename) {
                     
-                    // Filename se month part nikalo
                     const datePart = entry.name.replace('Attendance_Data_', '').replace('.xlsx', '');
                     const fileMonthPrefix = datePart.substring(0, 7);
                     
-                    // Sirf current month wali file delete karo
                     if (fileMonthPrefix === currentMonthPrefix) {
                         toDelete.push(entry.name);
                     }
@@ -1413,7 +2018,6 @@ async function saveAllData() {
             console.warn('Scan error:', scanErr);
         }
         
-        // ✅ Nayi file banao
         const fileHandle = await data.folderHandle.getFileHandle(filename, { create: true });
         const writable = await fileHandle.createWritable();
         await writable.write(blob);
@@ -1515,7 +2119,6 @@ async function listFolderFiles() {
             if (entry.kind === 'file' && entry.name.endsWith('.xlsx')) {
                 const file = await entry.getFile();
                 
-                // Month nikalo
                 let monthBadge = '';
                 if (entry.name.startsWith('Attendance_Data_')) {
                     const datePart = entry.name.replace('Attendance_Data_', '').replace('.xlsx', '');
@@ -3285,9 +3888,9 @@ function exportBonusesOnly() {
 }
 
 // ============================================
-// START
+// START - Called after login
 // ============================================
-init();
+// (init() is now called from checkAuth/handleLogin)
 </script>
 
 </body>
